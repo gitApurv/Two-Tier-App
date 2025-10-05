@@ -1,0 +1,18 @@
+{
+  "name": "two-tier-app",
+  "version": "1.0.0",
+  "description": "This application is a Two-Tier Web Application designed for a simple message board. It separates the presentation logic from the data storage, making it a foundational example of a web service architecture.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mysql2": "^3.15.1"
+  },
+  "author": "Apurv Maurya",
+  "license": "ISC",
+  "type": "module"
+}

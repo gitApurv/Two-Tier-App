@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:9.4
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_DATABASE: mydb
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: apppassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-uappuser",
+          "-papppassword",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  nodeapp:
+    build: .
+    container_name: node_app_container
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql
+      DB_NAME: mydb
+      DB_USER: appuser
+      DB_PASS: apppassword
+    ports:
+      - "3000:3000"
+
+volumes:
+  mysql_data:

@@ -8,23 +8,13 @@ services:
     environment:
       MYSQL_DATABASE: mydb
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_USER: appuser
-      MYSQL_PASSWORD: apppassword
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
       test:
-        [
-          "CMD",
-          "mysqladmin",
-          "ping",
-          "-h",
-          "localhost",
-          "-uappuser",
-          "-papppassword",
-        ]
+        ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-padmin"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -39,8 +29,8 @@ services:
     environment:
       DB_HOST: mysql
       DB_NAME: mydb
-      DB_USER: appuser
-      DB_PASS: apppassword
+      DB_USER: root
+      DB_PASS: admin
     ports:
       - "3000:3000"
 
